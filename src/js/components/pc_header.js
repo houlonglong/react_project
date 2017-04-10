@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Router, Link} from 'react-router'
 import {
     Row,
     Col,
@@ -26,7 +26,7 @@ class PCHerader extends React.Component {
             current: 'top',
             modalVisible: false,
             action: 'login',
-            haslogined: false,
+            hasLogined: false,
             userNickName: '',
             userid: 0
         }
@@ -43,36 +43,53 @@ class PCHerader extends React.Component {
         }
     }
     handleSubmit(e){
-      e.preventDefault();
-      let myFetchOptions = {
-        method:'GET'
+		//页面开始向 API 进行提交数据
+		e.preventDefault();
+  		var myFetchOptions = {
+  			method: 'GET'
+  		};
+  		var formData = this.props.form.getFieldsValue();
+  		console.log(formData);
+  		fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=" + this.state.action
+  		+ "&username="+formData.userName+"&password="+formData.password
+  		+"&r_userName=" + formData.r_userName + "&r_password="
+  		+ formData.r_password + "&r_confirmPassword="
+  		+ formData.r_confirmPassword, myFetchOptions)
+  		.then(response => response.json())
+  		.then(json => {
+        console.log(json,"json")
+  			this.setState({userNickName: json.NickUserName, userid: json.UserId});
+  		});
+  		if (this.state.action=="login") {
+  			this.setState({hasLogined:true});
+  		}
+  		message.success("请求成功！");
+  		this.setmodalVisible(false);
+	};
+    callback(key){
+      alert(key)
+      if(key === 1){
+        this.setState({
+          action: 'register',
+        })
+      }else{
+        this.setState({
+          action: 'login',
+        })
       }
-      //let fromdata = this.props.from.getFieldsValue()
-      this.props.form.validateFields((err, values) => {
-        if (!err) {
-          fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=register&username=userName&password=password&r_userName="+values.r_userName+"&r_password="+values.r_password+"&r_confirmPassword="+values.r_confirmPassword,myFetchOptions).
-		        then(response=>response.json()).then(json=>{
-                  console.log(json)
-			           this.setState({userNickName:json.NickUserName,userid:json.UserId});
-                 console.log(this.state)
-		             });
-		             message.success("注册成功！");
-                 	this.setmodalVisible(false);
-        }
-      });
     }
     render() {
         //  let { getFieldProps } = this.props.from;
          const { getFieldDecorator } = this.props.form;
-        const userShow = this.state.haslogined
+        const userShow = this.state.hasLogined
             ? <Menu.Item key="logout" class="register">
-                    <Button type="primary" htmlType="Button">{this.state.userNickName}</Button>
+                    <Button type="primary"  htmlType="button">{this.state.userNickName}</Button>
                     &nbsp;&nbsp;
-                    <Link target="_blank">
-                        <Button type="dashed" htmlType="Button">个人中心</Button>
+                    <Link target="_blank" >
+                        <Button type="dashed" >个人中心</Button>
                     </Link>
                     &nbsp;&nbsp;
-                    <Button type="ghost" htmlType="Button">退出</Button>
+                    <Button type="ghost" >退出</Button>
                 </Menu.Item>
             : <Menu.Item key="register" class="register">
                 <Icon type="login" key="register"/>注册/登录
@@ -87,7 +104,7 @@ class PCHerader extends React.Component {
                             <span>简单新闻网</span>
                         </a>
                     </Col>
-                    <Col span={11}>
+                    <Col span={13}>
                         <Menu mode="horizontal" selectedKeys={[this.state.current]} onClick={this.handleClick.bind(this)}>
                             <Menu.Item key="top">
                                 <Icon type="appstore" key="top"/>头条
@@ -120,22 +137,22 @@ class PCHerader extends React.Component {
                     <Col span={2}></Col>
                 </Row>
                 <Modal title="用户中心" wrapClassName="vertical-center-modal" visible={this.state.modalVisible} onCancel= {()=>{ this.setmodalVisible(false)}} onOk={() => this.setmodalVisible(false)} okText="关闭">
-                    <Tabs type="card">
+                    <Tabs type="card" onChang={this.callback.bind(this)}>
                         <TabPane tab="注册" key="1" tab={< span > <Icon type="user-add"/>注册 < /span>}>
                             <Form onSubmit={this.handleSubmit.bind(this)} >
                                 <FormItem label="账户">
-                                {getFieldDecorator('r_userName', { rules: [{ required: true, message: 'Please input your username!' }]})(
+                                {getFieldDecorator('r_userName', { rules: [{ required: false, message: 'Please input your username!' }]})(
                                     <Input prefix={<Icon type="user"  />} placeholder="请输入你的账号" />
                                 )}
                                 </FormItem>
                                 <FormItem label="密码">
-                                {getFieldDecorator('r_password', { rules: [{ required: true, message: 'Please input your username!' }]})(
+                                {getFieldDecorator('r_password', { rules: [{ required: false, message: 'Please input your username!' }]})(
                                     <Input type="password" prefix={<Icon type="lock"  />} placeholder="请输入你的密码" />
                                 )}
 
                                 </FormItem>
                                 <FormItem label="确认密码">
-                                {getFieldDecorator('r_confirmPassword', { rules: [{ required: true, message: 'Please input your username!' }]})(
+                                {getFieldDecorator('r_confirmPassword', { rules: [{ required: false, message: 'Please input your username!' }]})(
                                     <Input type="password" prefix={<Icon type="lock"  />} placeholder="请再次输入你的密码" />
                                 )}
 
@@ -146,9 +163,21 @@ class PCHerader extends React.Component {
                             </Form>
                         </TabPane>
                         <TabPane tab={< span > <Icon type="smile-o"/>登录 < /span>} key="2">
-                            <Form >
-
-                            </Form>
+                        <Form onSubmit={this.handleSubmit.bind(this)} >
+                            <FormItem label="账户">
+                            {getFieldDecorator('userName', { rules: [{ required: false, message: 'Please input your username!' }]})(
+                                <Input prefix={<Icon type="user"  />} placeholder="请输入你的账号" />
+                            )}
+                            </FormItem>
+                            <FormItem label="密码">
+                            {getFieldDecorator('password', { rules: [{ required: false, message: 'Please input your username!' }]})(
+                                <Input type="password" prefix={<Icon type="lock"  />} placeholder="请输入你的密码" />
+                            )}
+                            </FormItem>
+                            <FormItem>
+                                <Button type="primary" htmlType="submit" className="login-form-button">登录</Button>
+                            </FormItem>
+                        </Form>
                         </TabPane>
                     </Tabs>
                 </Modal>

@@ -39,3 +39,11 @@
 .login-form-button {
   width: 100%;
 }
+
+.register{
+  float: right !important;
+}
+
+ .register a{
+  display: -webkit-inline-box !important;
+ }
