@@ -1,8 +1,8 @@
 var debug = process.env.NODE_ENV !== "production";
 var webpack = require('webpack');
 var path = require('path');
-  var WebpackDevServer = require('webpack-dev-server');
-console.log(__dirname)
+var WebpackDevServer = require('webpack-dev-server');
+var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 module.exports = {
   context: path.join(__dirname),
   devtool: debug ? "inline-sourcemap" : null,
@@ -29,9 +29,16 @@ module.exports = {
   // devServer: {
   //   contentBase: path.join(__dirname),
   //   compress: true,
-  //   port: 9000
+  //   port: 9000,
+  //   color:true
   // },
   plugins: debug ? [] : [
+    new BrowserSyncPlugin({
+     host: 'localhost',
+     port: 3000,
+     browsers: [],
+     server: { baseDir: [ './' ] }
+   }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),

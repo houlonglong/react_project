@@ -25,7 +25,7 @@ class PCHerader extends React.Component {
         this.state = {
             current: 'top',
             modalVisible: false,
-            action: 'login',
+            action: 'register',
             hasLogined: false,
             userNickName: '',
             userid: 0
@@ -57,10 +57,10 @@ class PCHerader extends React.Component {
   		+ formData.r_confirmPassword, myFetchOptions)
   		.then(response => response.json())
   		.then(json => {
-        console.log(json,"json")
   			this.setState({userNickName: json.NickUserName, userid: json.UserId});
   		});
   		if (this.state.action=="login") {
+        alert(11)
   			this.setState({hasLogined:true});
   		}
   		message.success("请求成功！");
