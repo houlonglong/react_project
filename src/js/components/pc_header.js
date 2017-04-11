@@ -35,6 +35,15 @@ class PCHerader extends React.Component {
         console.log(value)
         this.setState({modalVisible: value})
     }
+    componentWillMount(){
+      if(localStorage.userId!=""){
+        this.setState({
+          hasLogined: true,
+          userNickName: localStorage.NickUserName,
+          userid: localStorage.userId
+        })
+      }
+    }
     handleClick(e) {
         if (e.key == "register") {
             this.setState({current: "register", modalVisible: true})
@@ -57,17 +66,16 @@ class PCHerader extends React.Component {
   		+ formData.r_confirmPassword, myFetchOptions)
   		.then(response => response.json())
   		.then(json => {
-  			this.setState({userNickName: json.NickUserName, userid: json.UserId});
+        if(this.state.action=="login"){
+          this.setState({userNickName:  json.NickUserName, userid: json.UserId,hasLogined:true});
+          localStorage.userId= json.UserId;
+          localStorage.NickUserName =  json.NickUserName;
+        }
   		});
-  		if (this.state.action=="login") {
-        alert(11)
-  			this.setState({hasLogined:true});
-  		}
   		message.success("请求成功！");
   		this.setmodalVisible(false);
 	};
     callback(key){
-      alert(key)
       if(key === 1){
         this.setState({
           action: 'register',
@@ -78,10 +86,18 @@ class PCHerader extends React.Component {
         })
       }
     }
+    logout(){
+      // localStorage.userId= ""
+      // localStorage.NickUserName = ""
+      localStorage.clear()
+      this.setState({
+        hasLogined: false,
+      })
+    }
     render() {
         //  let { getFieldProps } = this.props.from;
          const { getFieldDecorator } = this.props.form;
-        const userShow = this.state.hasLogined
+         const userShow = this.state.hasLogined
             ? <Menu.Item key="logout" class="register">
                     <Button type="primary"  htmlType="button">{this.state.userNickName}</Button>
                     &nbsp;&nbsp;
@@ -89,11 +105,12 @@ class PCHerader extends React.Component {
                         <Button type="dashed" >个人中心</Button>
                     </Link>
                     &nbsp;&nbsp;
-                    <Button type="ghost" >退出</Button>
+                    <Button type="ghost"  onClick={this.logout.bind(this)} >退出</Button>
                 </Menu.Item>
             : <Menu.Item key="register" class="register">
                 <Icon type="login" key="register"/>注册/登录
             </Menu.Item>
+            console.log(this.state.hasLogined,'212112')
         return (
             <header>
                 <Row>
@@ -137,7 +154,7 @@ class PCHerader extends React.Component {
                     <Col span={2}></Col>
                 </Row>
                 <Modal title="用户中心" wrapClassName="vertical-center-modal" visible={this.state.modalVisible} onCancel= {()=>{ this.setmodalVisible(false)}} onOk={() => this.setmodalVisible(false)} okText="关闭">
-                    <Tabs type="card" onChang={this.callback.bind(this)}>
+                    <Tabs type="card" onChange={this.callback.bind(this)}>
                         <TabPane tab="注册" key="1" tab={< span > <Icon type="user-add"/>注册 < /span>}>
                             <Form onSubmit={this.handleSubmit.bind(this)} >
                                 <FormItem label="账户">

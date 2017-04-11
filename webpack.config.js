@@ -3,6 +3,8 @@ var webpack = require('webpack');
 var path = require('path');
 var WebpackDevServer = require('webpack-dev-server');
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+var browserSync = require('browser-sync').create();
+
 module.exports = {
   context: path.join(__dirname),
   devtool: debug ? "inline-sourcemap" : null,
@@ -33,14 +35,24 @@ module.exports = {
   //   color:true
   // },
   plugins: debug ? [] : [
-    new BrowserSyncPlugin({
-     host: 'localhost',
-     port: 3000,
-     browsers: [],
-     server: { baseDir: [ './' ] }
-   }),
+
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+  //   new BrowserSyncPlugin({
+  //    host: 'localhost',
+  //    port: 8080,
+  //    browsers: [],
+  //    server: { baseDir: [ './' ] }
+  //  })
   ],
 };
+
+
+// browserSync.init({
+//         server: {
+//             baseDir: "./",
+//         },
+//         files: "./src/js/components/*.js",
+//         port: 8080
+//     });

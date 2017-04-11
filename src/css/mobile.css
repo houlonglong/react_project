@@ -36,6 +36,18 @@ html{
   right: 0;
 
 }
+#mobileheader .login_icon{
+  font-size: .5rem;
+  float: right;
+  margin-right: .3rem;
+  color: #2db7f5;
+  align-self: baseline;
+  position: absolute;
+  align-self: flex-start;
+  align-content: center;
+  text-align: right;
+  right: 0;
+}
 .vertical-center-modal {
   text-align: center;
   white-space: nowrap;
