@@ -11,6 +11,19 @@
   padding-left: 5px;
 }
 
+
+
+/*banber*/
+.container{
+  padding-top: 10px
+}
+
+.leftContainer,.carousel{
+  width: 400px;
+  float:left;
+}
+
+
 /*底部*/
 .footer{
   text-align: center;;
