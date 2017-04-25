@@ -1,6 +1,7 @@
 import React from 'react';
 import MobileHerader from './mobile_header.js';
 import MobileFooter from './mobile_footer.js';
+import MoblieList from './moblie_list.js';
 import {
   Tabs
 } from 'antd';
@@ -11,7 +12,9 @@ export default class MobileIndex extends React.Component{
       <div>
             <MobileHerader />
              <Tabs>
-                <TabPane tab="头条" key="1"></TabPane>
+                <TabPane tab="头条" key="1">
+                <MoblieList count={20} type="top" />
+                </TabPane>
                 <TabPane tab="社会" key="2"></TabPane>
                 <TabPane tab="国内" key="3"></TabPane>
                 <TabPane tab="国际" key="4"></TabPane>
