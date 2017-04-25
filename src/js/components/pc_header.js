@@ -99,7 +99,7 @@ class PCHerader extends React.Component {
          const { getFieldDecorator } = this.props.form;
          const userShow = this.state.hasLogined
             ? <Menu.Item key="logout" class="register">
-                    <Button type="primary"  htmlType="button">{this.state.userNickName}</Button>
+                    <Button type="primary"  htmlType="button" style={{'verticalAlign':'middle'}}>{this.state.userNickName}</Button>
                     &nbsp;&nbsp;
                     <Link target="_blank" >
                         <Button type="dashed" >个人中心</Button>

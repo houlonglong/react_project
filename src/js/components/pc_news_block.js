@@ -34,7 +34,7 @@ export default class PCNewsBlock extends React.Component {
 			))
 			: '没有加载到任何新闻';
      return (
-       <div class="topNewsList">
+       <div class="topNewsList" style={{'height':this.props.height}}>
           <Card>
             <ul>{newsList}</ul>
           </Card>

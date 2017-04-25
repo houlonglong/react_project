@@ -36,20 +36,20 @@ export default class PCNewsContainer extends React.Component {
                                     </div>
                                 </Carousel>
                             </div>
-                            <PCNewsImageBlock count={9} type="guoji" width="400px" cartTitle="国际头条" imageWidth="112px"/>
+                            <PCNewsImageBlock count={6} type="guoji" width="400px" cartTitle="国际头条" imageWidth="112px"/>
                         </div>
                         <Tabs class="tabs_news">
                             <TabPane tab="头条新闻" key="1">
-                                <PCNewsBlock count={10} type="top" width="100%" bordered="false"/>
+                                <PCNewsBlock count={23} type="top" width="100%" bordered="false"/>
                             </TabPane>
                             <TabPane tab="国际" key="2">
-                                <PCNewsBlock count={10} type="guoji" width="100%" bordered="false"/>
+                                <PCNewsBlock count={23} type="guoji" width="100%" bordered="false"/>
                             </TabPane>
                             <TabPane tab="新闻" key="3">
-                                <PCNewsBlock count={10} type="top" width="100%" bordered="false"/>
+                                <PCNewsBlock count={23} type="top" width="100%" bordered="false"/>
                             </TabPane>
                             <TabPane tab="体育" key="4">
-                                <PCNewsBlock count={9} type="tiyu" width="100%" bordered="false"/>
+                                <PCNewsBlock height="648px" count={23} type="tiyu" width="100%" bordered="false"/>
                             </TabPane>
                         </Tabs>
                         <div>
