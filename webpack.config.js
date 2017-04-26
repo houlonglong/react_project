@@ -17,7 +17,11 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           presets: ['react', 'es2015'],
-          plugins: ['react-html-attrs'], //添加组件的插件配置
+        //  plugins: ['react-html-attrs'], //添加组件的插件配置
+        "plugins": [
+            ["import", { libraryName: "antd", "style": "css" }],
+            ['react-html-attrs'] // `style: true` 会加载 less 文件
+          ]
         }
       },
       //下面是使用 ant-design 的配置文件
