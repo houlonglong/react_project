@@ -1,11 +1,10 @@
 import React from 'react';
-import PCHerader from './pc_header.js';
-import PCFooter from './pc_footer.js'
-import {Row, Col, Tabs, Card, BackTop} from 'antd';
-import CommonComments from './comment_comments.js'
+import MobileHerader from './mobile_header.js';
+import MobileFooter from './mobile_footer.js';
+import {Row, Col, Tabs, Card,BackTop} from 'antd';
 const TabPane = Tabs.TabPane;
 
-export default class PCNewsDetails extends React.Component {
+export default class MobileNewsDetails extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -26,20 +25,18 @@ export default class PCNewsDetails extends React.Component {
     }
     render() {
         return (
-            <div>
-                <PCHerader></PCHerader>
+            <div id='mobileDetailsContainer'>
+                <MobileHerader></MobileHerader>
+                <div class="ucmobilelis">
                 <Row>
-                    <Col span={2}></Col>
-                    <Col span={14} className="container">
+                    <Col span={24} className="container">
                         <div class="articleContainer" dangerouslySetInnerHTML={this.createMarkup()}></div>
                         <hr/>
-                        <CommonComments uniquekey={this.props.params.uniquekey}/>
                     </Col>
-                    <Col span={6}></Col>
-                    <Col span={2}></Col>
                 </Row>
-                <PCFooter></PCFooter>
+                <MobileFooter></MobileFooter>
                 <BackTop></BackTop>
+                  </div>  
             </div>
         )
     }
