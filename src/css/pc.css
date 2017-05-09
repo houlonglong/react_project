@@ -401,7 +401,7 @@ iframe {
     left: 0;
     top: 0;
     display: block;
-    width: 60%
+    //width: 60%
 }
 
 .article-content .img .txt-wrap {

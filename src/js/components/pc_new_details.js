@@ -3,6 +3,7 @@ import PCHerader from './pc_header.js';
 import PCFooter from './pc_footer.js'
 import {Row, Col, Tabs, Card, BackTop} from 'antd';
 import CommonComments from './comment_comments.js'
+import PCNewsImageBlock from './pc_news_image_block'
 const TabPane = Tabs.TabPane;
 
 export default class PCNewsDetails extends React.Component {
@@ -35,7 +36,9 @@ export default class PCNewsDetails extends React.Component {
                         <hr/>
                         <CommonComments uniquekey={this.props.params.uniquekey}/>
                     </Col>
-                    <Col span={6}></Col>
+                    <Col span={6}>
+                        <PCNewsImageBlock paddingleft="10px" count={48} type="yule" width="100%" cartTitle="娱乐头条" imageWidth="152px"/>
+                    </Col>
                     <Col span={2}></Col>
                 </Row>
                 <PCFooter></PCFooter>

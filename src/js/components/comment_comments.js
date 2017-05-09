@@ -44,7 +44,7 @@ class CommonComments extends React.Component {
     .then(response => response.json()).then(json => {
 			this.componentDidMount();
 		})
-    console.log(React.findDOMNode(this.refs.mytextarea))
+    console.log((this.refs.mytextarea))
 	};
 
 	render() {
