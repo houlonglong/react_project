@@ -3,7 +3,7 @@ import MobileHerader from './mobile_header.js';
 import MobileFooter from './mobile_footer.js';
 import {Row, Col, Tabs, Card,BackTop} from 'antd';
 const TabPane = Tabs.TabPane;
-
+import CommonComments from './comment_comments.js'
 export default class MobileNewsDetails extends React.Component {
     constructor() {
         super();
@@ -32,11 +32,12 @@ export default class MobileNewsDetails extends React.Component {
                     <Col span={24} className="container">
                         <div class="articleContainer" dangerouslySetInnerHTML={this.createMarkup()}></div>
                         <hr/>
+                        <CommonComments uniquekey={this.props.params.uniquekey}/>
                     </Col>
                 </Row>
                 <MobileFooter></MobileFooter>
                 <BackTop></BackTop>
-                  </div>  
+                  </div>
             </div>
         )
     }

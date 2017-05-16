@@ -40,13 +40,27 @@ class CommonComments extends React.Component {
 		};
 		var formdata = this.props.form.getFieldsValue();
     console.log(formdata,'formdata')
-		fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=comment&userid=" + localStorage.userId + "&uniquekey=" + this.props.uniquekey + "&commnet=" + formdata.remark, myFetchOptions)
+		fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=comment&userid=" + localStorage.userid + "&uniquekey=" + this.props.uniquekey + "&commnet=" + formdata.remark,myFetchOptions)
     .then(response => response.json()).then(json => {
 			this.componentDidMount();
 		})
     console.log((this.refs.mytextarea))
 	};
-
+	addUserColltection(){
+		var myFetchOptions = {
+			'method':'GET'
+		};
+		fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=uc&userid="+localStorage.userid+"&uniquekey"+this.props.uniquekey,myFetchOptions)
+		.then(response => response.json())
+		.then(json => {
+				console.log(json)
+				notification['success']({
+					message:'小哥说',
+					description:'收藏文章成功'
+				})
+				//
+		})
+	}
 	render() {
 		let {getFieldDecorator} = this.props.form;
 		const {comments} = this.state;
@@ -70,6 +84,8 @@ class CommonComments extends React.Component {
               )}
 							</FormItem>
 							<Button type="primary" htmlType="submit">提交评论</Button>
+							&nbsp;&nbsp;
+							<Button type="primary" htmlType="button" onClick={this.addUserColltection.bind(this)}>收藏</Button>
 						</Form>
 					</Col>
 				</Row>
